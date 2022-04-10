@@ -1,0 +1,31 @@
+.province {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: white;
+  box-shadow: 0 5px 10px 6px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 15px;
+}
+.province h6 {
+  font-weight: bold;
+}
+.province ul {
+  list-style-type: none;
+  padding: 0;
+}
+.province ul li {
+  padding: 10px;
+  border-radius: 5px;
+}
+.province ul li:nth-child(odd) {
+  background-color: #f3f3f3b7;
+}
+.province ul li:hover {
+  background-color: #77b9ff;
+  color: white;
+  cursor: pointer;
+}

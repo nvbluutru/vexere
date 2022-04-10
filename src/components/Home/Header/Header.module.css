@@ -1,0 +1,109 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: white;
+  padding: 20px 0;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.3);
+}
+.header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__menu {
+  margin: 0;
+  padding: 0;
+}
+.header__menu li {
+  list-style-type: none;
+  display: inline-block;
+}
+.header__menu li a {
+  color: #000000;
+  text-decoration: none;
+  padding: 0 10px;
+  font-size: 1.1rem;
+  transition: all 0.25s;
+}
+.header__menu li a:hover {
+  color: #1761c5;
+}
+.header__navigation {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.header__login {
+  display: flex;
+  gap: 10px;
+}
+.header__login button {
+  background-color: #1e272a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: all 0.5s;
+}
+.header .header__primary {
+  background-color: #0360c4;
+}
+.header__login button:hover {
+  background-color: #024994;
+}
+.header__hotline {
+  padding: 10px 20px;
+  border: 1px solid #eee;
+  background-color: white;
+  border-radius: 5px;
+}
+.header__contact {
+  position: relative;
+}
+.header__contact--view {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+  max-width: 300px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s;
+}
+.header__contact--view::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-left: 7px solid white;
+  border-top: 7px solid white;
+  transform: translateY(-4px) rotate(45deg);
+  box-shadow: -1px -1px 0 0 #ccc;
+}
+.header__hotline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 10px;
+  transform: translateY(100%);
+  background-color: transparent;
+}
+.header__hotline:hover .header__contact--view {
+  opacity: 1;
+  visibility: visible;
+}
