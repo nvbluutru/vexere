@@ -2,32 +2,34 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ChooseProvince from '../ChooseProvince/ChooseProvince';
 import style from "./Banner.module.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { NotificationManager } from 'react-notifications';
-import { convertStation } from '../../../redux/actions';
-
+import { convertStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions';
+import { DatePicker } from 'antd';
+import moment from 'moment';
 export default function Banner() {
     const dispatch = useDispatch();
-    const valueFrom = useSelector((state) => state.fromStation)
-    const valueTo = useSelector((state) => state.toStation)
+    const valueFrom = useSelector((state) => state.fromStation.value)
+    const valueTo = useSelector((state) => state.toStation.value)
+    const statusShowFrom = useSelector((state) => state.fromStation.statusShow)
+    const statusShowTo = useSelector((state) => state.toStation.statusShow)
     const [startDate, setStartDate] = useState(new Date());
-    const [statusShowFrom, setStatusShowFrom] = useState(false);
-    const [statusShowTo, setStatusShowTo] = useState(false);
-
     const showChooseFrom = (status) => {
-        setStatusShowFrom(status);
+        dispatch(changeStatusShowFrom(status))
+        dispatch(changeStatusShowTo(false))
     }
     const showChooseTo = (status) => {
-        setStatusShowTo(status);
+        dispatch(changeStatusShowTo(status))
+        dispatch(changeStatusShowFrom(false))
     }
     const handleConvertChoose = () => {
+        if (valueFrom === "Thành phố nơi đi" || valueTo === "Thành phố nơi đến") {
+            return;
+        }
         dispatch(convertStation())
     }
     const checkSetStartDate = (date) => {
         const currentDate = new Date();
         const chooseDate = new Date(date);
-        console.log(currentDate, chooseDate)
         if (chooseDate.getTime() < currentDate.getTime() && currentDate.getDay() !== chooseDate.getDay()) {
             return NotificationManager.error('Không được chọn ngày bé hơn', 'Thất bại!', 5000);
         }
@@ -41,18 +43,18 @@ export default function Banner() {
                 <form className={style.banner__trip}>
                     <div className={style.banner__item}>
                         <i className={`${style.banner__icon} fa-solid fa-location-dot`}></i>
-                        <input type="text" value={valueFrom} onFocus={() => { showChooseFrom(true) }} />
+                        <input type="text" value={valueFrom} onClick={() => { showChooseFrom(!statusShowFrom) }} />
                         <i onClick={handleConvertChoose} className={`${style.banner__convert} fa-solid fa-arrow-right-arrow-left`}></i>
                         <ChooseProvince status={statusShowFrom} type="from" />
                     </div>
                     <div className={style.banner__item}>
                         <i className={`${style.banner__icon} fa-solid fa-location-dot`}></i>
-                        <input type="text" value={valueTo} onFocus={() => { showChooseTo(true) }} />
+                        <input type="text" value={valueTo} onClick={() => { showChooseTo(!statusShowTo) }} />
                         <ChooseProvince status={statusShowTo} type="to" />
                     </div>
                     <div className={style.banner__item}>
                         <i className={`${style.banner__icon} fa-solid fa-calendar-check`}></i>
-                        <DatePicker selected={startDate} onChange={(date) => checkSetStartDate(date)} />
+                        <DatePicker style={{ width: "100%", border: "none", height: "100%", "padding-left": "50px" }} defaultValue={moment(new Date(), "DD/MM/YYYY")} format="DD/MM/YYYY" />
                     </div>
                     <button className={style.banner__submit}>Tìm chuyến</button>
                 </form>

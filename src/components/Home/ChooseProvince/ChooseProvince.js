@@ -1,16 +1,19 @@
 import React from 'react'
 import style from "./ChooseProvince.module.css";
 import { useDispatch } from 'react-redux';
-import { changeFrom, changeTo } from '../../../redux/actions';
+import { changeFromStation, changeToStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions';
 
 export default function ChooseProvince({ status, type = "from" }) {
     const dispatch = useDispatch()
+
     const handleChangeLocation = (e) => {
         const value = e.target.textContent;
         if (type === "from") {
-            dispatch(changeFrom(value))
+            dispatch(changeFromStation(value))
+            dispatch(changeStatusShowFrom(false))
         } else if (type === "to") {
-            dispatch(changeTo(value))
+            dispatch(changeToStation(value))
+            dispatch(changeStatusShowTo(false))
         }
     }
     return (

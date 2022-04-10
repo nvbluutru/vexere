@@ -3,15 +3,27 @@ export const convertStation = () => {
         type: "convertStation"
     }
 }
-export const changeFrom = (data) => {
+export const changeFromStation = (data) => {
     return {
-        type: "changeFrom",
+        type: "changeFromStation",
         payload: data
     }
 }
-export const changeTo = (data) => {
+export const changeStatusShowFrom = (data) => {
     return {
-        type: "changeTo",
+        type: "changeStatusShowFrom",
+        payload: data
+    }
+}
+export const changeStatusShowTo = (data) => {
+    return {
+        type: "changeStatusShowTo",
+        payload: data
+    }
+}
+export const changeToStation = (data) => {
+    return {
+        type: "changeToStation",
         payload: data
     }
 }

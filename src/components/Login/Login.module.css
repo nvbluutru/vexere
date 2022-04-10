@@ -23,9 +23,7 @@
   flex-basis: 60%;
   padding: 50px;
 }
-.login__item {
-  margin-bottom: 20px;
-}
+
 .login__item label {
   display: block;
   margin-bottom: 10px;
@@ -91,4 +89,11 @@
   border: none;
   background-image: linear-gradient(to right, #d576d5, #9e75d8);
   color: white;
+}
+.message__error {
+  color: rgb(185, 0, 0);
+  font-size: 0.9rem;
+  margin-left: 5px;
+  min-height: 25px;
+  margin-bottom: 0;
 }
