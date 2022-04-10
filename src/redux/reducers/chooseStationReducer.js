@@ -8,7 +8,7 @@ const initValue = {
         value: "Thành phố nơi đến"
     }
 }
-const rootReducer = (state = initValue, action) => {
+const chooseStationReducer = (state = initValue, action) => {
     console.log({ state, action })
     switch (action.type) {
         case "changeFromStation":
@@ -59,4 +59,4 @@ const rootReducer = (state = initValue, action) => {
             return state
     }
 }
-export default rootReducer
+export default chooseStationReducer

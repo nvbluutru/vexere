@@ -1,0 +1,1 @@
+export const chooseStationReducer = (state) => state.chooseStationReducer; 

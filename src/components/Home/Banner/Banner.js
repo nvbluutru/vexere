@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ChooseProvince from '../ChooseProvince/ChooseProvince';
 import style from "./Banner.module.css";
-import { NotificationManager } from 'react-notifications';
-import { convertStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions';
-import { DatePicker } from 'antd';
+import { convertStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions/actions';
+import { chooseStationReducer } from '../../../redux/selectors/selectors';
+import { DatePicker, notification } from 'antd';
 import moment from 'moment';
 export default function Banner() {
     const dispatch = useDispatch();
-    const valueFrom = useSelector((state) => state.fromStation.value)
-    const valueTo = useSelector((state) => state.toStation.value)
-    const statusShowFrom = useSelector((state) => state.fromStation.statusShow)
-    const statusShowTo = useSelector((state) => state.toStation.statusShow)
+    const valueFrom = useSelector((state) => chooseStationReducer(state).fromStation.value)
+    const valueTo = useSelector((state) => chooseStationReducer(state).toStation.value)
+    const statusShowFrom = useSelector((state) => chooseStationReducer(state).fromStation.statusShow)
+    const statusShowTo = useSelector((state) => chooseStationReducer(state).toStation.statusShow)
     const [startDate, setStartDate] = useState(new Date());
     const showChooseFrom = (status) => {
         dispatch(changeStatusShowFrom(status))
@@ -28,10 +28,14 @@ export default function Banner() {
         dispatch(convertStation())
     }
     const checkSetStartDate = (date) => {
+        const formatDate = date.split("/").reverse().join("/"); // Convert date "DD/MM/YYYY" to "YYYY/MM/DD"
         const currentDate = new Date();
-        const chooseDate = new Date(date);
-        if (chooseDate.getTime() < currentDate.getTime() && currentDate.getDay() !== chooseDate.getDay()) {
-            return NotificationManager.error('Không được chọn ngày bé hơn', 'Thất bại!', 5000);
+        const chooseDate = new Date(formatDate);
+        if (chooseDate.getTime() < currentDate.getTime() && chooseDate.getDate() !== currentDate.getDate()) {
+            return notification.error({
+                message: "Không được chọn ngày bé hơn hôm nay",
+                duration: 2
+            });
         }
         setStartDate(date);
     }
@@ -54,7 +58,7 @@ export default function Banner() {
                     </div>
                     <div className={style.banner__item}>
                         <i className={`${style.banner__icon} fa-solid fa-calendar-check`}></i>
-                        <DatePicker style={{ width: "100%", border: "none", height: "100%", "padding-left": "50px" }} defaultValue={moment(new Date(), "DD/MM/YYYY")} format="DD/MM/YYYY" />
+                        <DatePicker onChange={(date, dateString) => { checkSetStartDate(dateString) }} style={{ width: "100%", border: "none", height: "100%", paddingLeft: "50px" }} value={moment(startDate, "DD/MM/YYYY")} format="DD/MM/YYYY" />
                     </div>
                     <button className={style.banner__submit}>Tìm chuyến</button>
                 </form>

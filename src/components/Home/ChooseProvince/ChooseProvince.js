@@ -1,7 +1,7 @@
 import React from 'react'
 import style from "./ChooseProvince.module.css";
 import { useDispatch } from 'react-redux';
-import { changeFromStation, changeToStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions';
+import { changeFromStation, changeToStation, changeStatusShowFrom, changeStatusShowTo } from '../../../redux/actions/actions';
 
 export default function ChooseProvince({ status, type = "from" }) {
     const dispatch = useDispatch()
