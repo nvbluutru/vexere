@@ -29,7 +29,7 @@ export default function Header() {
                         </ul>
                         <div className={style.header__contact}>
                             <button className={style.header__hotline}>
-                                <i class="fa-solid fa-phone"></i> Hotline
+                                <i className="fa-solid fa-phone"></i> Hotline
                                 <div className={style["header__contact--view"]}>
                                     <b>Hotline: </b>02599955500
                                 </div>

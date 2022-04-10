@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import { NotificationContainer } from 'react-notifications';
 import React from "react";
+
 function App() {
   return (
     <div className="App">
